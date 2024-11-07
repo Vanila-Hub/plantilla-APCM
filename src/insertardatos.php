@@ -16,6 +16,22 @@ try {
     $pdo = new PDO($dsn, $user, $pass, $options); //se crea la conexion con los datos
     echo "Conexión exitosa.";
 
+    $nombre = $_GET["nombre"] ?? "Maria";
+    $apellidos = $_GET["apellidos"] ?? "Lopez";
+    $telefono = $_GET["telefono"] ?? "636123456";
+
+    $sql="INSERT INTO persona(nombre, apellidos, telefono) VALUES (:nombre, :apellidos, :telefono)";
+
+    $sentencia = $pdo -> prepare($sql);
+    $sentencia -> bindParam(":nombre", $nombre);
+    $sentencia -> bindParam(":apellidos", $apellidos);
+    $sentencia -> bindParam(":telefono", $telefono);
+
+    $isOk = $sentencia -> execute();
+    $idGenerado = $pdo -> lastInsertId();
+
+    echo $idGenerado;
+
 } catch (\PDOException $e) {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }

@@ -15,6 +15,18 @@ $options = [
 try {
     $pdo = new PDO($dsn, $user, $pass, $options); //se crea la conexion con los datos
     echo "Conexión exitosa.";
+    $nombre="Manuel";
+
+    $sql = "DELETE FROM persona WHERE nombre = :name";
+
+    $sentencia = $pdo -> prepare($sql);
+    $sentencia -> bindParam(":name", $nombre); //se pasa por referencia por lo que necesita una variable, no se puede pasar directamente el valor (útil para pasar arays), si no se puede usar la funcion bindValue
+
+    $isOk = $sentencia -> execute();
+    $cantidadAfectada = $sentencia -> rowCount();
+
+    echo $cantidadAfectada;
+
 
 } catch (\PDOException $e) {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());

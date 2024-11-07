@@ -19,7 +19,7 @@ try {
     $sql = "DELETE FROM persona WHERE nombre = ?";
     $sentencia = $pdo -> prepare($sql);
 
-    $isOk = $sentencia -> execute(['Juan']);
+    $isOk = $sentencia -> execute(['Mario']);
     $cantidadAfectada = $sentencia -> rowCount();
 
     echo $cantidadAfectada;
