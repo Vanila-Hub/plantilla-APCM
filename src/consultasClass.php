@@ -14,6 +14,5 @@ while($t = $sentencia -> fetch()) {
     echo "Nombre: " . $t -> getNombre() . "<br />";
     echo "Apellidos: " . $t -> getApellidos() . "<br />";
     echo "Teléfono: " . $t -> getTelefono() . "<br />";
-
     print_r($t);
 }

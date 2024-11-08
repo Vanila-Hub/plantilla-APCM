@@ -1,20 +1,33 @@
 <?php
 session_start();
-
+require_once '../app/db.php'; 
 
 require_once __DIR__ . '/../autoload.php';
 
 use Dwes\videoclub2_0\app\Cliente;
+use Dwes\videoclub2_0\app\Soporte;
 
 // creamos los clientes
 if (!isset($_SESSION['clientes'])) {
-    $clientes = [
-        new Cliente('Juan Perez',1, 'juan', '1234', 3),
-        new Cliente('Maria Lopez',2, 'maria', '5678', 2),
-    ];
+    //hacer la cosulta
+
+    require_once 'conexion.php'; //centralizamos la conexion puesto que es siempre la misma
+
+    $sql = "select * from clientes";
+
+    $sentencia = $pdo->prepare($sql);
+    $sentencia->setFetchMode(PDO::FETCH_CLASS, "Cliente");
+    $sentencia->execute();
+    
+    $clientes = [];
+    while ($t = $sentencia->fetch()) {
+        $clientes[]=new Cliente($t->nombre(), $t->numero(), $t->user(), $t->password(), $t->maxAlquilerConcurrente());
+    }
+    //fechear
+    //meterlo en la sesion
 
     // convertimos los clientes a JSON
-    $_SESSION['clientes'] = array_map(function($cliente) {
+    $_SESSION['clientes'] = array_map(function ($cliente) {
         return $cliente->toJSON();
     }, $clientes);
 }

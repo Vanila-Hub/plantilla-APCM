@@ -3,6 +3,7 @@ namespace Dwes\videoclub2_0\app;
 
 use Dwes\videoclub2_0\app\Util\SoporteYaAlquiladoException;
 use Dwes\videoclub2_0\app\Util\CupoSuperadoException;
+use Dwes\videoclub2_0\app\Util\SoporteNoEncontradoException;
 
 class Cliente {
     public $nombre; 
