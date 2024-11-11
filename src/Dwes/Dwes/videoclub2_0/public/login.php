@@ -1,42 +1,67 @@
 <?php
 session_start();
-require_once '../app/db.php'; 
+require_once 'db.php'; 
 
 require_once __DIR__ . '/../autoload.php';
 
 use Dwes\videoclub2_0\app\Cliente;
-use Dwes\videoclub2_0\app\Soporte;
+use Dwes\videoclub2_0\app\CintaVideo;
+use Dwes\videoclub2_0\app\Dvd;
+use Dwes\videoclub2_0\app\Juego;
+
 
 // creamos los clientes
 if (!isset($_SESSION['clientes'])) {
     //hacer la cosulta
 
-    require_once 'conexion.php'; //centralizamos la conexion puesto que es siempre la misma
-
     $sql = "select * from clientes";
 
     $sentencia = $pdo->prepare($sql);
-    $sentencia->setFetchMode(PDO::FETCH_CLASS, "Cliente");
     $sentencia->execute();
     
+    $resulset = $sentencia->fetchAll();
+
     $clientes = [];
-    while ($t = $sentencia->fetch()) {
-        $clientes[]=new Cliente($t->nombre(), $t->numero(), $t->user(), $t->password(), $t->maxAlquilerConcurrente());
+    foreach ($resulset as $resultado) {
+        $clientes[]=new Cliente($resultado["nombre"], $resultado["id"], $resultado["user"], $resultado["password"], $resultado["maxAlquilerConcurrente"]);
     }
-    //fechear
-    //meterlo en la sesion
 
-    // convertimos los clientes a JSON
-    $_SESSION['clientes'] = array_map(function ($cliente) {
-        return $cliente->toJSON();
-    }, $clientes);
+    // $_SESSION['clientes'] = array_map(function ($clientes) {
+    //     return $clientes->toJSON();
+    // }, $clientes);
+
+    $_SESSION['clientes'] = $clientes;
+
+    $sql = "select * from soportes";
+    $sentencia = $pdo->prepare($sql);
+    $sentencia->execute();
+    
+    $resulset = $sentencia->fetchAll();
+    $soportes=[];
+    foreach ($resulset as $resultado) {
+        switch ($resultado["tipo"]) {
+            case 'Cinta Video':
+                $soportes[]= new CintaVideo($resultado["titulo"],$resultado["id"], $resultado["precio"], $resultado["duracion"]);
+                break;
+            case 'DVD':
+                $soportes[]= new Dvd($resultado["titulo"], $resultado["id"], $resultado["precio"],$resultado["idiomas"], $resultado["pantalla"]);
+                break;
+            case 'Juego':
+                $soportes[]= new Juego($resultado["titulo"],$resultado["id"], $resultado["precio"], $resultado["consola"], $resultado["minJugadores"],$resultado["maxJugadores"]);
+                break;
+            default:
+                break;
+        }
+    }
+
 }
+// $_SESSION['soportes'] = [
+//     ['titulo' => 'Star Wars', 'tipo' => 'Cinta Video', 'precio' => 10, 'duracion' => 120, 'alquilado' => false],
+//     ['titulo' => 'Matrix', 'tipo' => 'DVD', 'precio' => 15, 'idiomas' => 'Inglés, Español', 'pantalla' => '16:9', 'alquilado' => false],
+//     ['titulo' => 'FIFA 2022', 'tipo' => 'Juego', 'precio' => 60, 'consola' => 'PS5', 'minJugadores' => 1, 'maxJugadores' => 4, 'alquilado' => false]
+// ];
+$_SESSION['soportes'] = $soportes;
 
-$_SESSION['soportes'] = [
-    ['titulo' => 'Star Wars', 'tipo' => 'Cinta Video', 'precio' => 10, 'duracion' => 120, 'alquilado' => false],
-    ['titulo' => 'Matrix', 'tipo' => 'DVD', 'precio' => 15, 'idiomas' => 'Inglés, Español', 'pantalla' => '16:9', 'alquilado' => false],
-    ['titulo' => 'FIFA 2022', 'tipo' => 'Juego', 'precio' => 60, 'consola' => 'PS5', 'minJugadores' => 1, 'maxJugadores' => 4, 'alquilado' => false]
-];
 
 // Datos del formulario
 $username = $_POST['username'];
