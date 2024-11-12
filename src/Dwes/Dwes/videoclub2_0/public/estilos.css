@@ -1,0 +1,377 @@
+/* Estilos generales del body */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+h2, h3 {
+    color: #333;
+    font-weight: 600;
+}
+
+h3 {
+    margin-top: 20px;
+    color: #4CAF50;
+}
+
+/* Estilo de los formularios */
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* Mensajes de error */
+p[style="color: red;"] {
+    color: red;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Estilo de los enlaces */
+a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Listas de clientes y soportes */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+ul li a {
+    margin-right: 10px;
+}
+
+/* Estilos para el panel de administración */
+h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 22px;
+    color: #4CAF50;
+}
+
+button.delete {
+    background-color: #FF4C4C;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.delete:hover {
+    background-color: #FF3333;
+}
+
+/* Estilo del panel del cliente */
+.panel-cliente {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+/* Estilo de las tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+/* Estilo del formulario de edición */
+form.edit {
+    max-width: 700px;
+    margin: 30px auto;
+}
+
+/* Ajustes para pequeños dispositivos */
+@media (max-width: 768px) {
+    form {
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"] {
+        font-size: 16px;
+    }
+
+    h2, h3 {
+        font-size: 18px;
+    }
+}
+
+/* Estilos para el Bento Grid (tarjetas) */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card h4 {
+    color: #333;
+    font-size: 18px;
+}
+
+.card p {
+    color: #666;
+    font-size: 14px;
+}
+
+.card a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.card a:hover {
+    text-decoration: underline;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para el Bento Grid (tarjetas) */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card p {
+    color: #666;
+    font-size: 14px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.enlace-editar, .enlace-cerrar-sesion {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.enlace-editar:hover, .enlace-cerrar-sesion:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para el Bento Grid (tarjetas) */
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.titulo-principal {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.error-mensaje {
+    color: red;
+    font-size: 14px;
+}
+
+.campo-formulario {
+    margin-bottom: 15px;
+}
+
+.etiqueta {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.input-formulario {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.boton-enviar {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.boton-enviar:hover {
+    background-color: #0056b3;
+}
+
+.enlace-volver {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007BFF;
+    font-weight: 600;
+}
+
+.enlace-volver:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para la tarjeta que contiene el formulario */
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Título principal */
+.titulo-principal {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Campos del formulario */
+.campo-formulario {
+    margin-bottom: 15px;
+}
+
+.etiqueta {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.input-formulario {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Botón de envío */
+.boton-enviar {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.boton-enviar:hover {
+    background-color: #0056b3;
+}
+
+/* Enlace de regreso */
+.enlace-volver {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007BFF;
+    font-weight: 600;
+}
+
+.enlace-volver:hover {
+    text-decoration: underline;
+}

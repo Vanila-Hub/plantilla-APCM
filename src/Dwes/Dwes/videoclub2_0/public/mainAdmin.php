@@ -68,7 +68,6 @@ foreach ($soportes as $soporte) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -76,6 +75,8 @@ foreach ($soportes as $soporte) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administrador</title>
+    <link rel="stylesheet" href="estilos.css">
+
     <script>
         function confirmDelete(clienteNumero) {
             if (confirm("¿Estás seguro de que deseas eliminar este cliente?")) {
@@ -86,39 +87,38 @@ foreach ($soportes as $soporte) {
 </head>
 
 <body>
-    <h2>Bienvenido, Administrador</h2>
-    <p>Has iniciado sesión como administrador.</p>
+    <h2 class="titulo-principal">Bienvenido, Administrador</h2>
+    <p class="mensaje-bienvenida">Has iniciado sesión como administrador.</p>
 
-    <h3>Listado de Clientes</h3>
-    <ul>
+    <h3 class="subtitulo">Listado de Clientes</h3>
+    <div class="grid-container">
         <?php foreach ($clientesPOO as $cliente): ?>
-            <li>
-                Nombre: <?php echo htmlspecialchars($cliente->getNombre()); ?> -
-                Usuario: <?php echo htmlspecialchars($cliente->getUser()) ?> -
-                Número de Cliente: <?php echo htmlspecialchars($cliente->getNumero()); ?> -
-                Alquileres permitidos: <?php echo htmlspecialchars($cliente->getMaxAlquilerConcurrente()); ?>
-                <a href="formUpdateCliente.php?numero=<?php echo htmlspecialchars($cliente->getNumero()); ?>">Editar</a>
-                <a href="#" onclick="confirmDelete(<?php echo htmlspecialchars($cliente->getNumero()); ?>)">Eliminar</a>
-
-            </li>
+            <div class="card">
+                <h4>Nombre: <?php echo htmlspecialchars($cliente->getNombre()); ?></h4>
+                <p>Usuario: <?php echo htmlspecialchars($cliente->getUser()) ?></p>
+                <p>Número de Cliente: <?php echo htmlspecialchars($cliente->getNumero()); ?></p>
+                <p>Alquileres permitidos: <?php echo htmlspecialchars($cliente->getMaxAlquilerConcurrente()); ?></p>
+                <a class="enlace-editar" href="formUpdateCliente.php?numero=<?php echo htmlspecialchars($cliente->getNumero()); ?>">Editar</a>
+                <a class="enlace-eliminar" href="#" onclick="confirmDelete(<?php echo htmlspecialchars($cliente->getNumero()); ?>)">Eliminar</a>
+            </div>
         <?php endforeach; ?>
-    </ul>
+    </div>
 
-    <a href="formCreateCliente.php">Añadir nuevo cliente</a>
+    <a class="enlace-agregar" href="formCreateCliente.php">Añadir nuevo cliente</a>
 
-    <h3>Listado de Soportes</h3>
-    <ul>
+    <h3 class="subtitulo">Listado de Soportes</h3>
+    <div class="grid-container">
         <?php foreach ($soportesPOO as $soporte): ?>
-            <li>
-                - Título: <?php echo htmlspecialchars($soporte->getTitulo());?> 
-                - Numero: <?php echo htmlspecialchars($soporte->getNumero()) ?>
-                - Precio: <?php echo htmlspecialchars($soporte->getPrecio()) ?>
-                - Alquilado: <?php echo $soporte->alquilado == 1 ? 'Sí' : 'No'; ?>
-            </li>
+            <div class="card">
+                <h4>Título: <?php echo htmlspecialchars($soporte->getTitulo());?></h4>
+                <p>Número: <?php echo htmlspecialchars($soporte->getNumero()) ?></p>
+                <p>Precio: <?php echo htmlspecialchars($soporte->getPrecio()) ?></p>
+                <p>Alquilado: <?php echo $soporte->alquilado == 1 ? 'Sí' : 'No'; ?></p>
+            </div>
         <?php endforeach; ?>
-    </ul>
+    </div>
 
-    <a href="logout.php">Cerrar Sesión</a>
+    <a class="enlace-cerrar-sesion" href="logout.php">Cerrar Sesión</a>
 </body>
 
 </html>
