@@ -34,8 +34,8 @@ if (empty($nombre) || empty($user) || empty($password) || $maxAlquilerConcurrent
 //     }
 // $_SESSION['clientes'] = $clientes;
 // }
-$isAdmin = $_SESSION["username"];
 // Actualizar la sesión con el cliente modificado
+
 $sql = "UPDATE clientes SET nombre=:nombre,user=:usuario,password=:password,maxAlquilerConcurrente=:maxAlquilerConcurrente WHERE id = :id";
 $sentencia = $pdo->prepare($sql);
 $sentencia ->bindParam(":nombre",$nombre);
@@ -45,10 +45,22 @@ $sentencia ->bindParam(":maxAlquilerConcurrente",$maxAlquilerConcurrente);
 $sentencia ->bindParam(":id",$id);
 $isOk = $sentencia->execute();
 
+$isAdmin = $_SESSION["username"];
+// var_dump($isAdmin);
+
 // Redirigir de vuelta al panel de administrador o cliente
-if ($isAdmin) {
+
+if ($isAdmin == "admin") {
     header('Location: mainAdmin.php');
 } else {
+    $sql = "select * from clientes where id = ?";
+
+    $sentencia = $pdo->prepare($sql);
+    $sentencia->execute([$id]);
+    
+    $resulset = $sentencia->fetchAll();
+
+    $_SESSION["cliente"] = $resulset;
     header('Location: mainCliente.php');
 }
 

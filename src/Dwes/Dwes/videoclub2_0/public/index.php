@@ -2,10 +2,10 @@
 session_start();
 
 // si esta logeado redirigir a main
-if (isset($_SESSION['username'])) {
-    header('Location: main.php');
-    exit();
-}
+// if (isset($_SESSION['username'])) {
+//     header('Location: main.php');
+//     exit();
+// }
 
 $error = isset($_GET['error']) ? $_GET['error'] : '';
 ?>

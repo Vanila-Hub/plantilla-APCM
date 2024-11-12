@@ -20,10 +20,8 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['cliente'])) {
 //     exit();
 // }
 
-$usuario_ = $_SESSION["cliente"];
+$usuario_ = $_SESSION["cliente"][0];
 $cliente = new Cliente($usuario_["nombre"], $usuario_["id"], $usuario_["user"], $usuario_["password"], $usuario_["maxAlquilerConcurrente"]);
-
-
 
 $alquileres = $cliente->getAlquileres();
 ?>
@@ -50,7 +48,6 @@ $alquileres = $cliente->getAlquileres();
     <?php endif; ?>
     
     <p><a href="formUpdateCliente.php?numero=<?php echo htmlspecialchars($cliente->getNumero()); ?>">Editar mis datos</a></p>
-
 
     <a href="logout.php">Cerrar Sesión</a>
 </body>
