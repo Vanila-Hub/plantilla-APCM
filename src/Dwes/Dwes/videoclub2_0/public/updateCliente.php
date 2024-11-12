@@ -10,6 +10,7 @@ $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : '';
 $user = isset($_POST['user']) ? trim($_POST['user']) : '';
 $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 $maxAlquilerConcurrente = isset($_POST['maxAlquilerConcurrente']) ? intval($_POST['maxAlquilerConcurrente']) : 3;
+$id = isset($_POST['id']) ? trim($_POST['id']) : '';
 
 // Verificar que todos los campos están completos
 if (empty($nombre) || empty($user) || empty($password) || $maxAlquilerConcurrente <= 0) {
@@ -17,24 +18,32 @@ if (empty($nombre) || empty($user) || empty($password) || $maxAlquilerConcurrent
     exit();
 }
 
-// Obtener los clientes de la sesión
-$clientes = isset($_SESSION['clientes']) ? $_SESSION['clientes'] : [];
+// // Obtener los clientes de la sesión
+// $clientes = isset($_SESSION['clientes']) ? $_SESSION['clientes'] : [];
 
-// Buscar y actualizar el cliente en la sesión
-foreach ($clientes as &$clienteJson) {
-    $cliente = Cliente::fromJSON($clienteJson);
-    if ($cliente->getNumero() === $numero) {
-        $cliente->setNombre($nombre);
-        $cliente->setUser($user);
-        $cliente->setPassword($password);
-        $cliente->setMaxAlquilerConcurrente($maxAlquilerConcurrente);
-        $clienteJson = $cliente->toJSON();  // Actualizar el cliente en la sesión
-        break;
-    }
-}
-
+// // Buscar y actualizar el cliente en la sesión
+// foreach ($clientes as &$clienteJson) {
+//     $cliente = Cliente::fromJSON($clienteJson);
+//     if ($cliente->getNumero() === $numero) {
+//         $cliente->setNombre($nombre);
+//         $cliente->setUser($user);
+//         $cliente->setPassword($password);
+//         $cliente->setMaxAlquilerConcurrente($maxAlquilerConcurrente);
+//         $clienteJson = $cliente->toJSON();  // Actualizar el cliente en la sesión
+//         break;
+//     }
+// $_SESSION['clientes'] = $clientes;
+// }
+$isAdmin = $_SESSION["username"];
 // Actualizar la sesión con el cliente modificado
-$_SESSION['clientes'] = $clientes;
+$sql = "UPDATE clientes SET nombre=:nombre,user=:usuario,password=:password,maxAlquilerConcurrente=:maxAlquilerConcurrente WHERE id = :id";
+$sentencia = $pdo->prepare($sql);
+$sentencia ->bindParam(":nombre",$nombre);
+$sentencia ->bindParam(":usuario",$user);
+$sentencia ->bindParam(":password",$password);
+$sentencia ->bindParam(":maxAlquilerConcurrente",$maxAlquilerConcurrente);
+$sentencia ->bindParam(":id",$id);
+$isOk = $sentencia->execute();
 
 // Redirigir de vuelta al panel de administrador o cliente
 if ($isAdmin) {

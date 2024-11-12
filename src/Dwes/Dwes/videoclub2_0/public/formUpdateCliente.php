@@ -2,10 +2,11 @@
 session_start();
 
 require_once __DIR__ . '/../autoload.php';
-
+require_once 'db.php';
 use Dwes\videoclub2_0\app\Cliente;
 
 // Verificar que el cliente a editar está disponible en la sesión
+
 if (!isset($_GET['numero'])) {
     header('Location: mainAdmin.php');
     exit();
@@ -13,24 +14,39 @@ if (!isset($_GET['numero'])) {
 
 // Obtener el cliente a editar de la sesión
 $numeroCliente = intval($_GET['numero']);
-$clientes = isset($_SESSION['clientes']) ? $_SESSION['clientes'] : [];
-$clienteAEditar = null;
 
-foreach ($clientes as $clienteJson) {
-    $cliente = Cliente::fromJSON($clienteJson);
-    if ($cliente->getNumero() === $numeroCliente) {
-        $clienteAEditar = $cliente;
-        break;
-    }
-}
+// $clientes = isset($_SESSION['clientes']) ? $_SESSION['clientes'] : [];
+// $clienteAEditar = null;
 
-// Si no se encontró el cliente, redirigir
-if ($clienteAEditar === null) {
-    header('Location: mainAdmin.php');
-    exit();
+// foreach ($clientes as $clienteJson) {
+//     $cliente = Cliente::fromJSON($clienteJson);
+//     if ($cliente->getNumero() === $numeroCliente) {
+//         $clienteAEditar = $cliente;
+//         break;
+//     }
+// }
+
+// // Si no se encontró el cliente, redirigir
+// if ($clienteAEditar === null) {
+//     header('Location: mainAdmin.php');
+//     exit();
+// }
+
+
+// obtienen los datos de la sesion
+$sql = "select * from clientes where id = ?";
+
+$sentencia = $pdo->prepare($sql);
+$sentencia->execute([$numeroCliente]);
+
+$resulset = $sentencia->fetchAll();
+$clienteAEditar = [];
+foreach ($resulset as $cliente) {
+    $clienteAEditar = new Cliente($cliente["nombre"], $cliente["id"], $cliente["user"], $cliente["password"], $cliente["maxAlquilerConcurrente"]);
 }
 
 $isAdmin = $_SESSION['username'] === 'admin';
+
 
 ?>
 
@@ -51,6 +67,7 @@ $isAdmin = $_SESSION['username'] === 'admin';
 
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($clienteAEditar->getNombre()); ?>" required><br>
+        <input type="hidden" id="id" name="id" value="<?php echo htmlspecialchars($clienteAEditar->getNumero());?>"><br>
 
         <label for="user">Usuario:</label>
         <input type="text" id="user" name="user" value="<?php echo htmlspecialchars($clienteAEditar->getUser()); ?>" required><br>
