@@ -60,7 +60,7 @@ if ($isAdmin == "admin") {
     
     $resulset = $sentencia->fetchAll();
 
-    $_SESSION["cliente"] = $resulset;
+    $_SESSION["cliente"] = $resulset[0];
     header('Location: mainCliente.php');
 }
 

@@ -20,7 +20,7 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['cliente'])) {
 //     exit();
 // }
 
-$usuario_ = $_SESSION["cliente"][0];
+$usuario_ = $_SESSION["cliente"];
 $cliente = new Cliente($usuario_["nombre"], $usuario_["id"], $usuario_["user"], $usuario_["password"], $usuario_["maxAlquilerConcurrente"]);
 
 $alquileres = $cliente->getAlquileres();
@@ -32,6 +32,7 @@ $alquileres = $cliente->getAlquileres();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel del Cliente</title>
+    
 </head>
 <body>
     <h2>Bienvenido, <?php echo htmlspecialchars($cliente->getNombre()); ?></h2>
