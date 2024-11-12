@@ -9,7 +9,6 @@ use Dwes\videoclub2_0\app\CintaVideo;
 use Dwes\videoclub2_0\app\Dvd;
 use Dwes\videoclub2_0\app\Juego;
 
-
 // creamos los clientes
 if (!isset($_SESSION['clientes'])) {
     
