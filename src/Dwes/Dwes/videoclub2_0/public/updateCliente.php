@@ -2,11 +2,10 @@
 session_start();
 
 require_once __DIR__ . '/../autoload.php';
-
+require_once 'db.php';
 use Dwes\videoclub2_0\app\Cliente;
 
 // Recoger los datos enviados por el formulario
-$numero = isset($_POST['numero']) ? intval($_POST['numero']) : 0;
 $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : '';
 $user = isset($_POST['user']) ? trim($_POST['user']) : '';
 $password = isset($_POST['password']) ? trim($_POST['password']) : '';
