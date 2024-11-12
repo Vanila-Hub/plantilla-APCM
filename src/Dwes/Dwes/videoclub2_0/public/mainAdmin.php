@@ -10,8 +10,8 @@ use Dwes\videoclub2_0\app\CintaVideo;
 use Dwes\videoclub2_0\app\Dvd;
 use Dwes\videoclub2_0\app\Juego;
 
-$testCliente = new Cliente('Test', 1, 'testuser', 'testpass', 1, 3);
-echo 'Cliente cargado correctamente: ' . $testCliente->getNombre() . '<br>';
+// $testCliente = new Cliente('Test', 1, 'testuser', 'testpass', 1, 3);
+// echo 'Cliente cargado correctamente: ' . $testCliente->getNombre() . '<br>';
 
 
 // si no hay sesion o no es admin redirigir a index

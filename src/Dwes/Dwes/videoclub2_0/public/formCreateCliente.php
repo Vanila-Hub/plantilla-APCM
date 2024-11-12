@@ -22,8 +22,8 @@
         <label for="password">Contraseña:</label>
         <input type="password" id="password" name="password" required><br>
 
-        <label for="numero">Número de Cliente:</label>
-        <input type="number" id="numero" name="numero" required><br>
+        <!-- <label for="numero">Número de Cliente:</label>
+        <input type="number" id="numero" name="numero" required><br> -->
 
         <label for="maxAlquileresConcurrentes">Alquileres Permitidos:</label>
         <input type="number" id="maxAlquilerConcurrente" name="maxAlquilerConcurrente" value="3" required><br>

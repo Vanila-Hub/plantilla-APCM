@@ -11,14 +11,19 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['cliente'])) {
     exit();
 }
 
-// comprobaciones de json
-if (is_string($_SESSION['cliente'])) {
-    $cliente = Cliente::fromJSON($_SESSION['cliente']);  // Convertir la cadena JSON en un objeto Cliente
-} else {
-    // Error: el cliente en la sesión no es una cadena JSON
-    echo "Error: Cliente no está en el formato correcto.";
-    exit();
-}
+// // comprobaciones de json
+// if (is_string($_SESSION['cliente'])) {
+//     $cliente = Cliente::fromJSON($_SESSION['cliente']);  // Convertir la cadena JSON en un objeto Cliente
+// } else {
+//     // Error: el cliente en la sesión no es una cadena JSON
+//     echo "Error: Cliente no está en el formato correcto.";
+//     exit();
+// }
+
+$usuario_ = $_SESSION["cliente"];
+$cliente = new Cliente($usuario_["nombre"], $usuario_["id"], $usuario_["user"], $usuario_["password"], $usuario_["maxAlquilerConcurrente"]);
+
+
 
 $alquileres = $cliente->getAlquileres();
 ?>
