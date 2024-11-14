@@ -25,31 +25,35 @@ $cliente = new Cliente($usuario_["nombre"], $usuario_["id"], $usuario_["user"], 
 
 $alquileres = $cliente->getAlquileres();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel del Cliente</title>
-    
+    <link rel="stylesheet" href="estilos.css">
 </head>
+
 <body>
-    <h2>Bienvenido, <?php echo htmlspecialchars($cliente->getNombre()); ?></h2>
-    <p>Tus alquileres actuales:</p>
+    <h2 class="titulo-principal">Bienvenido, <?php echo htmlspecialchars($cliente->getNombre()); ?></h2>
+    <p class="mensaje-bienvenida">Tus alquileres actuales:</p>
 
     <?php if (empty($alquileres)): ?>
         <p>No tienes ningún alquiler en este momento.</p>
     <?php else: ?>
-        <ul>
+        <div class="grid-container">
             <?php foreach ($alquileres as $alquiler): ?>
-                <li><?php echo htmlspecialchars($alquiler); ?></li>
+                <div class="card">
+                    <p><?php echo htmlspecialchars($alquiler); ?></p>
+                </div>
             <?php endforeach; ?>
-        </ul>
+        </div>
     <?php endif; ?>
-    
-    <p><a href="formUpdateCliente.php?numero=<?php echo htmlspecialchars($cliente->getNumero()); ?>">Editar mis datos</a></p>
 
-    <a href="logout.php">Cerrar Sesión</a>
+    <p><a class="enlace-editar" href="formUpdateCliente.php?numero=<?php echo htmlspecialchars($cliente->getNumero()); ?>">Editar mis datos</a></p>
+
+    <a class="enlace-cerrar-sesion" href="logout.php">Cerrar Sesión</a>
 </body>
+
 </html>

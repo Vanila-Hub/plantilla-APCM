@@ -49,38 +49,48 @@ $isAdmin = $_SESSION['username'] === 'admin';
 
 
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Cliente</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <h2>Editar Cliente: <?php echo htmlspecialchars($clienteAEditar->getNombre()); ?></h2>
+    <div class="card">
+        <h2 class="titulo-principal">Editar Cliente: <?php echo htmlspecialchars($clienteAEditar->getNombre()); ?></h2>
 
-    <form action="updateCliente.php" method="POST">
-        <input type="hidden" name="numero" value="<?php echo htmlspecialchars($clienteAEditar->getNumero()); ?>">
-        <input type="hidden" name="isAdmin" value="<?php echo $isAdmin ? 'true' : 'false'; ?>">
+        <form action="updateCliente.php" method="POST">
+            <input type="hidden" name="numero" value="<?php echo htmlspecialchars($clienteAEditar->getNumero()); ?>">
+            <input type="hidden" name="isAdmin" value="<?php echo $isAdmin ? 'true' : 'false'; ?>">
 
+            <div class="campo-formulario">
+                <label for="nombre" class="etiqueta">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($clienteAEditar->getNombre()); ?>" required class="input-formulario"><br>
+            </div>
 
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($clienteAEditar->getNombre()); ?>" required><br>
-        <input type="hidden" id="id" name="id" value="<?php echo htmlspecialchars($clienteAEditar->getNumero());?>"><br>
+            <input type="hidden" id="id" name="id" value="<?php echo htmlspecialchars($clienteAEditar->getNumero());?>"><br>
 
-        <label for="user">Usuario:</label>
-        <input type="text" id="user" name="user" value="<?php echo htmlspecialchars($clienteAEditar->getUser()); ?>" required><br>
+            <div class="campo-formulario">
+                <label for="user" class="etiqueta">Usuario:</label>
+                <input type="text" id="user" name="user" value="<?php echo htmlspecialchars($clienteAEditar->getUser()); ?>" required class="input-formulario"><br>
+            </div>
 
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($clienteAEditar->getPassword()); ?>" required><br>
+            <div class="campo-formulario">
+                <label for="password" class="etiqueta">Contraseña:</label>
+                <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($clienteAEditar->getPassword()); ?>" required class="input-formulario"><br>
+            </div>
 
-        <label for="maxAlquilerConcurrente">Alquileres Permitidos:</label>
-        <input type="number" id="maxAlquilerConcurrente" name="maxAlquilerConcurrente" value="<?php echo htmlspecialchars($clienteAEditar->getMaxAlquilerConcurrente()); ?>" required><br>
+            <div class="campo-formulario">
+                <label for="maxAlquilerConcurrente" class="etiqueta">Alquileres Permitidos:</label>
+                <input type="number" id="maxAlquilerConcurrente" name="maxAlquilerConcurrente" value="<?php echo htmlspecialchars($clienteAEditar->getMaxAlquilerConcurrente()); ?>" required class="input-formulario"><br>
+            </div>
 
-        <input type="submit" value="Actualizar Cliente">
-    </form>
+            <input type="submit" value="Actualizar Cliente" class="boton-enviar">
+        </form>
 
-    <a href="mainAdmin.php">Volver al panel de administrador</a>
+        <a href="mainAdmin.php" class="enlace-volver">Volver al panel de administrador</a>
+    </div>
 </body>
 </html>
