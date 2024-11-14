@@ -1,6 +1,6 @@
 <?php
 // classes/Genero.php
-require_once 'Database.php';
+require_once 'Databases.php';
 class Genero
 {
     public $id;

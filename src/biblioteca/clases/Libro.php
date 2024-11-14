@@ -1,8 +1,8 @@
 <?php
 // classes/Libro.php
-require_once 'Database.php';
+require_once 'Databases.php';
 require_once 'Autor.php';
-require_once 'Genero.php';
+require_once 'Generos.php';
 class Libro
 {
     //agregar atributos de la clase, mirar la tabla
@@ -55,8 +55,18 @@ class Libro
         $id_autor,
         $id_genero,
         $fecha_publicacion
-    ) { //función para agregar un libro a la base de datos, usar prepare y
-        //execute de sentencias sql
+    ) { 
+        //función para agregar un libro a la base de datos, usar prepare y execute de sentencias sql
+        $pdo = Database::getInstance();
+        $sql = "INSERT INTO `libros`(`titulo`, `id_autor`, `id_genero`, `fecha_publicacion`) VALUES (:titulo,:id_autor,:id_genero,:fecha_publicacion)";
+        $sentencia = $pdo->prepare($sql);
+        $sentencia->bindParam(":titulo",$titulo);
+        $sentencia->bindParam(":id_autor",$id_autor);
+        $sentencia->bindParam(":id_genero",$id_genero);
+        $sentencia->bindParam(":fecha_publicacion",$fecha_publicacion);
+
+        $sentencia->execute();
+        
     }
     public static function buscar($id_autor = null, $id_genero = null)
     {
@@ -74,7 +84,21 @@ class Libro
         AND (:id_genero IS NULL OR libros.id_genero =
         :id_genero)";
         //utilizar prepare y execute de la sentencia
+        $pdo = Database::getInstance();
+        $sentencia = $pdo->prepare($sql);
+        $sentencia->bindParam(":id_autor",$id_autor);
+        $sentencia->bindParam(":id_genero",$id_genero);
+
         //cuidado! hay que volver a capturar y generar objetos autor y genero y
         //ponerlos en el libro como atributos
+        $resultado = $sentencia->fetchAll();
+
+        $Libro = [];
+        foreach ($resultado as $row) {
+            $autor_ = new Autor($row["autor_id"],$row["autor_nombre"]);
+            $genero_ = new Genero($row["genero_id"],$row["genero_nombre"]);
+            $Libros[] = new Libro($row["id"], $row["titulo"], $autor_, $genero_, $row["fecha_publicacion"]);
+        }
+        return $Libro;
     }
 }

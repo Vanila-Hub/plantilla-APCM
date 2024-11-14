@@ -1,6 +1,6 @@
 <?php
 // classes/Autor.php
-require_once 'Database.php';
+require_once 'Databases.php';
 class Autor
 {
     public $id;
