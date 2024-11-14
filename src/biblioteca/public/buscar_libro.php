@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id_autor,
         $id_genero,
     );    
-    var_dump($id_autor);
 }
 include '../views/header.php';
 include '../views/formulario_buscar_libro.php';

@@ -94,14 +94,15 @@ class Libro
 
         //cuidado! hay que volver a capturar y generar objetos autor y genero y
         //ponerlos en el libro como atributos
+        $resultado = $sentencia->execute();
         $resultado = $sentencia->fetchAll();
 
-        $Libro = [];
+        $Libros = [];
         foreach ($resultado as $row) {
             $autor_ = new Autor($row["autor_id"],$row["autor_nombre"]);
             $genero_ = new Genero($row["genero_id"],$row["genero_nombre"]);
             $Libros[] = new Libro($row["id"], $row["titulo"], $autor_, $genero_, $row["fecha_publicacion"]);
         }
-        return $Libro;
+        return $Libros;
     }
 }
