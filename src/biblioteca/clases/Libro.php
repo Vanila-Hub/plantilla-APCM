@@ -63,9 +63,12 @@ class Libro
         $sentencia->bindParam(":titulo",$titulo);
         $sentencia->bindParam(":id_autor",$id_autor);
         $sentencia->bindParam(":id_genero",$id_genero);
-        $sentencia->bindParam(":fecha_publicacion",$fecha_publicacion);
+        $timestamp = strtotime($fecha_publicacion);
+        $fecha_format_usa = date("Y-m-d",$timestamp);
+        $sentencia->bindParam(":fecha_publicacion",$fecha_format_usa);
 
-        $sentencia->execute();
+        $isOk = $sentencia->execute();
+        
         
     }
     public static function buscar($id_autor = null, $id_genero = null)
