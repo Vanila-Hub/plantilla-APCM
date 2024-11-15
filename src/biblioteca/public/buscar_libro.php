@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../views/estilos.css">
 <?php
 require_once '../clases/Libro.php';
 require_once '../clases/Autor.php';

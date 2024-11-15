@@ -1,9 +1,8 @@
-<link rel="stylesheet" href="../views/estilos.css">
-
 <?php
 require_once '../clases/Libro.php';
 require_once '../clases/Autor.php';
 require_once '../clases/Generos.php';
+
 $autores = Autor::obtenerTodos();
 $generos = Genero::obtenerTodos();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -23,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: index.php");
     exit;
 }
+
 include '../views/header.php';
 include '../views/formulario_agregar_libro.php';
 include '../views/footer.php';
