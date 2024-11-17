@@ -46,7 +46,6 @@ class Libro
             $Libros[] = new Libro($row["id"], $row["titulo"], $autor_, $genero_, $row["fecha_publicacion"]);
         }
         return $Libros;
-
     }
     //cuidado! el libro tiene objetos de clase autor y género, habrá que
     //capturar esos objetos y meterlos dentro del libro
