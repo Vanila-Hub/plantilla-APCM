@@ -13,14 +13,15 @@ class Libro
     public $genero;
     public $fecha_publicacion;
     //agregar el constructor
-    function __construct($id, $titulo, $autor, $genero, $fecha_publicacion)
+    function __construct($id,$titulo,$autor,$genero,$fecha_publicacion)
     {
-        $this->id = $id;
-        $this->titulo = $titulo;
-        $this->autor = $autor;
-        $this->genero = $genero;
-        $this->fecha_publicacion = $fecha_publicacion;
+        $this->id=$id;
+        $this->titulo=$titulo;
+        $this->autor=$autor;
+        $this->genero=$genero;
+        $this->fecha_publicacion=$fecha_publicacion;
     }
+
     public static function obtenerTodos()
     {
         //funcion para obtener todos los libros de la base de datos (mirar las
@@ -33,19 +34,18 @@ class Libro
         FROM libros
         JOIN autores ON libros.id_autor = autores.id
         JOIN generos ON libros.id_genero = generos.id";
-
         $pdo = Database::getInstance();
         $sentencia = $pdo->prepare($sql);
-        $sentencia -> execute();
-        $resultado = $sentencia->fetchAll();
-
-        $Libros = [];
-        foreach ($resultado as $row) {
-            $autor_ = new Autor($row["autor_id"],$row["autor_nombre"]);
-            $genero_ = new Genero($row["genero_id"],$row["genero_nombre"]);
-            $Libros[] = new Libro($row["id"], $row["titulo"], $autor_, $genero_, $row["fecha_publicacion"]);
+        $sentencia->execute();
+        $resulset = $sentencia->fetchAll();
+        $libros = [];
+        foreach ($resulset as $row) {
+            $autor = new Autor((int)$row["autor_id"],$row["autor_nombre"]);
+            $genero = new Genero((int)$row["genero_id"],$row["genero_nombre"]);
+            $libro = new Libro($row["id"],$row["titulo"],$autor,$genero,$row["fecha_publicacion"]);
+            $libros[]=$libro;
         }
-        return $Libros;
+        return $libros;
     }
     //cuidado! el libro tiene objetos de clase autor y género, habrá que
     //capturar esos objetos y meterlos dentro del libro
@@ -56,19 +56,22 @@ class Libro
         $fecha_publicacion
     ) { 
         //función para agregar un libro a la base de datos, usar prepare y execute de sentencias sql
+       $sql = "INSERT INTO `libros`(`titulo`, `id_autor`, `id_genero`, `fecha_publicacion`) VALUES (:titulo,:id_autor,:id_genero,:fecha_publicacion)";
         $pdo = Database::getInstance();
-        $sql = "INSERT INTO `libros`(`titulo`, `id_autor`, `id_genero`, `fecha_publicacion`) VALUES (:titulo,:id_autor,:id_genero,:fecha_publicacion)";
         $sentencia = $pdo->prepare($sql);
         $sentencia->bindParam(":titulo",$titulo);
         $sentencia->bindParam(":id_autor",$id_autor);
         $sentencia->bindParam(":id_genero",$id_genero);
-        $timestamp = strtotime($fecha_publicacion);
-        $fecha_format_usa = date("Y-m-d",$timestamp);
-        $sentencia->bindParam(":fecha_publicacion",$fecha_format_usa);
-
+        $fecha_nueva = Date("Y-m-d",strtotime($fecha_publicacion));
+        $sentencia->bindParam(":fecha_publicacion",$fecha_nueva);
+        $sentencia->execute();
+    }
+    public static function eliminar($titulo){
+        $sql = "DELETE FROM `libros` WHERE titulo = :titulo ";
+        $pdo = Database::getInstance();
+        $sentencia = $pdo->prepare($sql);
+        $sentencia->bindParam(":titulo",$titulo);
         $isOk = $sentencia->execute();
-        
-        
     }
     public static function buscar($id_autor = null, $id_genero = null)
     {
@@ -90,18 +93,18 @@ class Libro
         $sentencia = $pdo->prepare($sql);
         $sentencia->bindParam(":id_autor",$id_autor);
         $sentencia->bindParam(":id_genero",$id_genero);
-
         //cuidado! hay que volver a capturar y generar objetos autor y genero y
         //ponerlos en el libro como atributos
-        $resultado = $sentencia->execute();
-        $resultado = $sentencia->fetchAll();
-
-        $Libros = [];
-        foreach ($resultado as $row) {
-            $autor_ = new Autor($row["autor_id"],$row["autor_nombre"]);
-            $genero_ = new Genero($row["genero_id"],$row["genero_nombre"]);
-            $Libros[] = new Libro($row["id"], $row["titulo"], $autor_, $genero_, $row["fecha_publicacion"]);
+        $sentencia->execute();
+        $resulset = $sentencia->fetchAll();
+        $libros = [];
+        foreach ($resulset as $row) {
+            $autor = new Autor((int)$row["autor_id"],$row["autor_nombre"]);
+            $genero = new Genero((int)$row["genero_id"],$row["genero_nombre"]);
+            $libro = new Libro($row["id"],$row["titulo"],$autor,$genero,$row["fecha_publicacion"]);
+            $libros[]=$libro;
         }
-        return $Libros;
+        return $libros;
+
     }
 }

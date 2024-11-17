@@ -157,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- Manejo de sesiones -->
 <?php
 session_start(); // Inicia la sesión
-
+session_destroy();
 // Comprobar si el usuario está logueado
 if (!isset($_SESSION['usuario'])) {
     header('Location: login.php'); // Redirigir al login si no está logueado
