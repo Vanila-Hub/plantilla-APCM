@@ -47,7 +47,6 @@ foreach ($resulset as $cliente) {
 
 $isAdmin = $_SESSION['username'] === 'admin';
 
-
 ?>
 <!DOCTYPE html>
 <html lang="es">

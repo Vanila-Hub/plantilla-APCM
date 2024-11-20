@@ -27,15 +27,15 @@ if (!isset($_SESSION['clientes'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     
-    // Si es administrador
-    if ($username === 'admin' && $password === 'admin') {
-        $_SESSION['username'] = 'admin';
-        header('Location: mainAdmin.php');
-        exit();
-    }
     
     // Si es un cliente
     foreach ($clientes as $clienteJson) {
+        // Si es administrador
+        if ($username === 'admin' && $password === 'admin') {
+            $_SESSION['username'] = 'admin';
+            header('Location: mainAdmin.php');
+            exit();
+        }
         if ($clienteJson["user"] === $username && $clienteJson["password"] === $password) {
             $_SESSION['username'] = $clienteJson["user"];
             $_SESSION['cliente'] = $clienteJson;  // Guardamos el cliente actual en la sesión

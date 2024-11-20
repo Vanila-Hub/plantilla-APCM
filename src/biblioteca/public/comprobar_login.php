@@ -2,7 +2,7 @@
 require_once '../clases/Usuario.php';
 
 session_start();
-
+// mirar si el usuario est en la sesion, si no esta obetener todos los uduarios de la BBDD mirar si el POSt el ususario es admin o un usuario de la BBDD
 if (!isset($_SESSION["user"])) {
     $usuariosBD = Usuario::obtenerTodos();
     $user = $_POST["user"];
@@ -22,6 +22,7 @@ if (!isset($_SESSION["user"])) {
             exit();
         }
     }
+    
     header("location: login.php?error=error ");
     exit();
 }

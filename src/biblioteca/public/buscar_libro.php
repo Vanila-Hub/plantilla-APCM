@@ -5,6 +5,7 @@ require_once '../clases/Generos.php';
 $autores = Autor::obtenerTodos();
 $generos = Genero::obtenerTodos();
 $libros = [];
+// si el server reques es post busca el libro
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $libros=[];
     //agregar el libro que se pasa desde el formulario_agregar_libro.php
