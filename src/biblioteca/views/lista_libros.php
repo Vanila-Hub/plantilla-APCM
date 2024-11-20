@@ -1,8 +1,4 @@
 
-<?php
-require_once("../public/index.php");
-
-?>
 
 <table border="1">
     <tr>
@@ -18,6 +14,11 @@ require_once("../public/index.php");
             <td><?php echo htmlspecialchars($libro->genero->nombre)?></td>
             <td><?php echo htmlspecialchars($libro->fecha_publicacion)?></td>
         </tr>
+    <?php endforeach;?>
+    <?php foreach ($listaUsuarios as $user): ?>
+        <?
+        var_dump($user["nombre"]);
+        ?>
     <?php endforeach;?>
 
 </table>
