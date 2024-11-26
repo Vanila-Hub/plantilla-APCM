@@ -14,7 +14,7 @@ $peliculas = getPeliculas();
     <title>Películas</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Gill Sans','Calibri';
             background-color: #f9f9f9;
             margin: 0;
             padding: 20px;

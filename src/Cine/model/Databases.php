@@ -1,6 +1,6 @@
 <?php
 // classes/Database.php
-require_once __DIR__ . '../model/db.php';
+require_once 'db.php';
 class Database
 {
     private static $instance = null;
