@@ -20,16 +20,4 @@ class Pelicula {
         $this->titulo=$titulo;
     }
 
-    public function getPelicula() {
-        
-    }
-    public function getPeliculas() {
-        
-    }
-    public function deletePelicula() {
-        
-    }
-    public function updatePelicula() {
-        
-    }
 }
