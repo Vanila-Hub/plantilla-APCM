@@ -1,6 +1,7 @@
 <?php
 require_once '../model/Databases.php';
 require_once '../model/Pelicula.php';
+
  function getPeliculas(){
     $sql = "SELECT * FROM peliculas";
     $pdo = Database::getInstance();
